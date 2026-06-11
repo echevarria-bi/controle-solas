@@ -1,70 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Controle de Qualidade</title>
-
-<style>
-
-body{
-    font-family:Arial;
-    max-width:500px;
-    margin:auto;
-    padding:20px;
-}
-
-input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin-bottom:10px;
-    box-sizing:border-box;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    cursor:pointer;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h2>Registro de Erro</h2>
-
-<input id="operador" placeholder="Operador">
-
-<select id="turno">
-<option>Manhã</option>
-<option>Tarde</option>
-<option>Noite</option>
-</select>
-
-<select id="material">
-<option>EVA</option>
-<option>TR</option>
-<option>PVC</option>
-<option>TPU</option>
-</select>
-
-<select id="erro">
-<option>Bolha</option>
-<option>Mancha</option>
-<option>Rebarba</option>
-<option>Falta de Material</option>
-</select>
-
-<input id="quantidade" type="number" placeholder="Quantidade">
-
-<textarea id="observacao" placeholder="Observação"></textarea>
-
-<button onclick="salvar()">Salvar</button>
-
 <script>
 
 const URL_API = "https://script.google.com/macros/s/AKfycbwmHWmXQXzb7u_2cUFJcp7hgJ1asUMkpOBsCEHkIIG56hML7MvqCjhkwnxtHJkNmt0nzw/exec";
+
+let fotoBase64 = "";
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("foto").addEventListener("change", function(e){
+
+        const arquivo = e.target.files[0];
+
+        if(!arquivo) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(event){
+
+            fotoBase64 = event.target.result;
+
+            document.getElementById("preview").src = fotoBase64;
+            document.getElementById("preview").style.display = "block";
+        };
+
+        reader.readAsDataURL(arquivo);
+
+    });
+
+});
 
 function salvar(){
 
@@ -77,10 +39,9 @@ function salvar(){
         erro: document.getElementById("erro").value,
         gravidade: "Média",
         quantidade: document.getElementById("quantidade").value,
-        observacao: document.getElementById("observacao").value
+        observacao: document.getElementById("observacao").value,
+        foto: fotoBase64
     };
-
-    console.log("Enviando:", dados);
 
     fetch(URL_API,{
         method:"POST",
@@ -92,6 +53,3 @@ function salvar(){
 }
 
 </script>
-
-</body>
-</html>
