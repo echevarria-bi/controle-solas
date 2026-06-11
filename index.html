@@ -17,11 +17,13 @@ input,select,textarea{
     width:100%;
     padding:10px;
     margin-bottom:10px;
+    box-sizing:border-box;
 }
 
 button{
     width:100%;
     padding:12px;
+    cursor:pointer;
 }
 
 </style>
@@ -64,26 +66,29 @@ button{
 
 const URL_API = "https://script.google.com/macros/s/AKfycbwmHWmXQXzb7u_2cUFJcp7hgJ1asUMkpOBsCEHkIIG56hML7MvqCjhkwnxtHJkNmt0nzw/exec";
 
-async function salvar(){
+function salvar(){
 
-const dados = {
-    operador: document.getElementById("operador").value,
-    turno: document.getElementById("turno").value,
-    material: document.getElementById("material").value,
-    modelo: "Modelo A",
-    maquina: "Injetora 01",
-    erro: document.getElementById("erro").value,
-    gravidade: "Média",
-    quantidade: document.getElementById("quantidade").value,
-    observacao: document.getElementById("observacao").value
-};
+    const dados = {
+        operador: document.getElementById("operador").value,
+        turno: document.getElementById("turno").value,
+        material: document.getElementById("material").value,
+        modelo: "Modelo A",
+        maquina: "Injetora 01",
+        erro: document.getElementById("erro").value,
+        gravidade: "Média",
+        quantidade: document.getElementById("quantidade").value,
+        observacao: document.getElementById("observacao").value
+    };
 
-await fetch(URL_API,{
-    method:"POST",
-    body:JSON.stringify(dados)
-});
+    console.log("Enviando:", dados);
 
-alert("Registro salvo!");
+    fetch(URL_API,{
+        method:"POST",
+        mode:"no-cors",
+        body:JSON.stringify(dados)
+    });
+
+    alert("Registro enviado!");
 }
 
 </script>
