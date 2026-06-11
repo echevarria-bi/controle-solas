@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Controle de Qualidade</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Registro de Erro</h2>
+
+<input id="operador" placeholder="Operador">
+
+<select id="turno">
+<option>Manhã</option>
+<option>Tarde</option>
+<option>Noite</option>
+</select>
+
+<select id="material">
+<option>EVA</option>
+<option>TR</option>
+<option>PVC</option>
+<option>TPU</option>
+</select>
+
+<select id="erro">
+<option>Bolha</option>
+<option>Mancha</option>
+<option>Rebarba</option>
+<option>Falta de Material</option>
+</select>
+
+<input id="quantidade" type="number" placeholder="Quantidade">
+
+<textarea id="observacao" placeholder="Observação"></textarea>
+
+<button onclick="salvar()">Salvar</button>
+
+<script>
+
+const URL_API = "https://script.google.com/macros/s/AKfycbwmHWmXQXzb7u_2cUFJcp7hgJ1asUMkpOBsCEHkIIG56hML7MvqCjhkwnxtHJkNmt0nzw/exec";
+
+async function salvar(){
+
+const dados = {
+    operador: document.getElementById("operador").value,
+    turno: document.getElementById("turno").value,
+    material: document.getElementById("material").value,
+    modelo: "Modelo A",
+    maquina: "Injetora 01",
+    erro: document.getElementById("erro").value,
+    gravidade: "Média",
+    quantidade: document.getElementById("quantidade").value,
+    observacao: document.getElementById("observacao").value
+};
+
+await fetch(URL_API,{
+    method:"POST",
+    body:JSON.stringify(dados)
+});
+
+alert("Registro salvo!");
+}
+
+</script>
+
+</body>
+</html>
