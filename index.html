@@ -100,6 +100,10 @@ document.getElementById("foto").addEventListener("change", function(e){
 
         document.getElementById("preview").src = fotoBase64;
         document.getElementById("preview").style.display = "block";
+
+        console.log("Foto carregada");
+        console.log(fotoBase64.substring(0,100));
+
     };
 
     reader.readAsDataURL(arquivo);
@@ -122,6 +126,8 @@ function salvar(){
     };
 
     console.log("Enviando:", dados);
+    console.log("Tamanho foto:", fotoBase64.length);
+    console.log("Foto:", fotoBase64.substring(0,100));
 
     fetch(URL_API,{
         method:"POST",
