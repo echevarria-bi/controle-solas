@@ -24,6 +24,7 @@ button{
     width:100%;
     padding:12px;
     cursor:pointer;
+    margin-bottom:10px;
 }
 
 #preview{
@@ -33,6 +34,10 @@ button{
     display:none;
     margin-bottom:10px;
     border:1px solid #ccc;
+}
+
+#foto{
+    display:none;
 }
 
 </style>
@@ -74,7 +79,14 @@ button{
 <input
     type="file"
     id="foto"
-    accept="image/*">
+    accept="image/*"
+    capture="environment">
+
+<button
+    type="button"
+    onclick="document.getElementById('foto').click()">
+    📷 Tirar Foto
+</button>
 
 <img id="preview">
 
@@ -127,7 +139,6 @@ function salvar(){
 
     console.log("Enviando:", dados);
     console.log("Tamanho foto:", fotoBase64.length);
-    console.log("Foto:", fotoBase64.substring(0,100));
 
     fetch(URL_API,{
         method:"POST",
